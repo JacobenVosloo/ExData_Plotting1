@@ -1,4 +1,4 @@
-plot2 <- function(data) {
+plot3 <- function(data) {
       #1 import all the data
       #2 subset only the data required  dates 2007-02-01 and 2007-02-02
       #3 create the plot in the graphic display device
@@ -12,11 +12,17 @@ plot2 <- function(data) {
       #2 Subset the data
       data <- data[which(data$Date == as.Date("2007-02-01") | data$Date == as.Date("2007-02-02")), ]
       
-      #3 Create graphs
+      #3
       par(mfrow = c(1,1))
       x <- data$Datetime
-      y <- data$Global_active_power
-      plot(x, y, type="l", xlab = "", ylab = "Global Active Power (kilowatts)")
-      dev.copy(png, file = "plot2.png",width = 480, height = 480)
+      y1 <- data$Sub_metering_1
+      y2 <- data$Sub_metering_2
+      y3 <- data$Sub_metering_3
+      plot(x, y1, type="l", xlab = "", ylab = "Energy sub metering", col = "black")
+      lines(x, y2, type="l", xlab = "", ylab = "Energy sub metering", col = "red")
+      lines(x, y3, type="l", xlab = "", ylab = "Energy sub metering", col = "blue")
+      legend("topright", pch = "-", col = c("black", "red", "blue"), 
+            legend = c("Sub_metering_1","Sub_metering_2","Sub_metering_3"))
+      dev.copy(png, file = "plot3.png",width = 480, height = 480)
       dev.off()
 }
